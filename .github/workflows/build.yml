@@ -1,0 +1,25 @@
+name: RPC Discord
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout mã nguồn
+      uses: actions/checkout@v4
+
+    - name: Cài đặt Rust
+      uses: dtolnay/rust-toolchain@stable
+
+    - name: Build file exe
+      run: cargo build --release
+
+    - name: Upload file exe để tải về
+      uses: actions/upload-artifact@v4
+      with:
+        name: RPC-App-Windows
+        path: target/release/*.exe
